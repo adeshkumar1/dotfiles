@@ -17,9 +17,11 @@ return {
 				yaml = { "prettier" },
 				markdown = { "prettier" },
 				lua = { "stylua" },
+				rust = { "rust_analyzer" },
 			},
 			formatters = {
 				clang_format = {},
+				prettier = {},
 			},
 			format_on_save = {
 				lsp_fallback = true,
