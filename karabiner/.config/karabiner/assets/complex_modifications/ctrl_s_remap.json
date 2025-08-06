@@ -1,0 +1,25 @@
+{
+  "title": "Remap Cmd+Ctrl+Alt+S to Ctrl+S",
+  "rules": [
+    {
+      "description": "Remap Cmd+Ctrl+Alt+S to Ctrl+S",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "s",
+            "modifiers": {
+              "mandatory": ["command", "control", "option"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "s",
+              "modifiers": ["control"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
