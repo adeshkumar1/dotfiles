@@ -15,7 +15,7 @@ $line_break\
 $character
 """
 
-right_format = """$all"""
+# right_format = """$all"""
 
 palette = "catppuccin_mocha"
 
