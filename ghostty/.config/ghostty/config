@@ -1,4 +1,7 @@
 # By default Reload config with shft + cmd + , 
+#
+cursor-style = block
+cursor-color = #ffffff
 
 config-file = themes/rosepine 
 background = #000000

@@ -33,10 +33,11 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 vim.opt.clipboard:append("unnamedplus")
-vim.opt.hlsearch = true
 
 vim.opt.mouse = "a"
 vim.g.editorconfig = true
+
+vim.opt.colorcolumn = ""
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = {
