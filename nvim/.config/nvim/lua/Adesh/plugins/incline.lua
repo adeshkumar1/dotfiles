@@ -19,14 +19,16 @@ return {
 					end
 
 					local ext = vim.fn.fnamemodify(bufname, ":e")
+					local icon, icon_color = devicons.get_icon(filename, ext, { default = true })
 
 					local modified = vim.bo[props.buf].modified
 
 					return {
-						-- { " ", icon, " ", guifg = icon_color },
-						{ filename, gui = modified and "bold" or "none" },
+						{ "┃" },
+						{ " ", icon, " ", guifg = icon_color },
+						{ filename },
 						modified and { " [+]", guifg = "#ff9e64" } or "",
-						" ",
+						{ " ┃" },
 					}
 				end,
 			})
