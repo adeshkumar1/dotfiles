@@ -33,6 +33,7 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 vim.opt.clipboard:append("unnamedplus")
+vim.o.winborder = "rounded"
 
 vim.opt.mouse = "a"
 vim.g.editorconfig = true

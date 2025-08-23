@@ -24,11 +24,9 @@ return {
 					local modified = vim.bo[props.buf].modified
 
 					return {
-						{ "┃" },
 						{ " ", icon, " ", guifg = icon_color },
 						{ filename },
 						modified and { " [+]", guifg = "#ff9e64" } or "",
-						{ " ┃" },
 					}
 				end,
 			})

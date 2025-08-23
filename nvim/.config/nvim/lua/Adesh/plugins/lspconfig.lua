@@ -29,11 +29,60 @@ return {
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 
-		lspconfig.rust_analyzer.setup({})
+		-- Set up LSP keybindings when server attaches
+		local on_attach = function(client, bufnr)
+			local opts = { buffer = bufnr, silent = true }
+
+			-- LSP keybindings
+			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+			-- vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+			-- vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+			-- vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+			-- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+			-- vim.keymap.set("n", "<leader>f", function()
+			-- 	vim.lsp.buf.format({ async = true })
+			-- end, opts)
+		end
+
+		-- Mason-lspconfig will automatically setup servers listed in mason.lua
+		-- But we can still override settings here
+
+		-- Rust
+		lspconfig.rust_analyzer.setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+			settings = {
+				["rust-analyzer"] = {
+					cargo = {
+						buildScripts = {
+							enable = true,
+						},
+					},
+					procMacro = {
+						enable = true,
+					},
+				},
+			},
+		})
+
+		-- Kotlin
+		lspconfig.kotlin_language_server.setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+			filetypes = { "kotlin" },
+			root_dir = lspconfig.util.root_pattern(
+				"settings.gradle",
+				"settings.gradle.kts",
+				"build.gradle",
+				"build.gradle.kts",
+				".git"
+			),
+		})
 
 		-- clangd (C/C++ language server)
 		lspconfig.clangd.setup({
 			capabilities = capabilities,
+			on_attach = on_attach,
 			-- optional: customize cmd or settings
 			-- cmd = { "clangd", "--background-index" },
 			filetypes = { "c", "cpp", "objc", "objcpp" },
@@ -41,6 +90,7 @@ return {
 		})
 
 		lspconfig.ts_ls.setup({
+			on_attach = on_attach,
 			filetypes = { "typescript" },
 		})
 
@@ -48,6 +98,7 @@ return {
 		-- lua_ls
 		lspconfig.lua_ls.setup({
 			capabilities = capabilities,
+			on_attach = on_attach,
 			settings = {
 				Lua = {
 					diagnostics = {
