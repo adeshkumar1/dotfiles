@@ -78,6 +78,7 @@ return {
 				"--completion-style=detailed",
 				"--fallback-style=llvm",
 				"--query-driver=/usr/bin/*,/usr/local/bin/*,/opt/homebrew/bin/*",
+				"--extra-arg=-std=c++20",
 			},
 			filetypes = { "c", "cpp", "objc", "objcpp" },
 			root_markers = { "compile_commands.json", "compile_flags.txt", ".git" },

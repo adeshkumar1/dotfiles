@@ -19,7 +19,7 @@ vim.keymap.set("v", "p", '"_dp', opts)
 
 vim.keymap.set("n", "<C-c>", ":nohlsearch<CR>")
 
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+vim.keymap.set("n", "<C-e>", vim.diagnostic.goto_next, opts)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 
 -- Hightlight yanking
