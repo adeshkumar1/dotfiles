@@ -42,6 +42,7 @@ vim.opt.clipboard:append("unnamedplus")
 vim.o.winborder = "rounded"
 
 vim.opt.mouse = "a"
+vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 vim.g.editorconfig = true
 
 vim.api.nvim_create_autocmd("FileType", {
