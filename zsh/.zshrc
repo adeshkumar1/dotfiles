@@ -18,6 +18,7 @@ export PATH="/usr/local/opt/python@3.10/bin:$PATH"
 export PATH=$PATH:$HOME/.spicetify
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 alias gs='git status'
+alias leetcode='nvim leetcode.nvim'
 
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

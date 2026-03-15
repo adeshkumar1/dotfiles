@@ -42,6 +42,9 @@ return {
 					vim.defer_fn(enable_wrap_on_leetcode, 200)
 				end,
 			})
+			vim.keymap.set("n", "<leader>'", "<cmd>Leet test<cr>", { desc = "LeetCode Test" })
+			vim.keymap.set("n", "<leader><cr>", "<cmd>Leet submit<cr>", { desc = "LeetCode Submit" })
+			vim.keymap.set("n", "<leader>z", "<cmd>Leet desc<cr>", { desc = "LeetCode Description" })
 		end,
 		opts = {
 			lang = "cpp",
@@ -54,6 +57,7 @@ return {
 						"#include <string>",
 						"#include <algorithm>",
 						"#include <unordered_map>",
+						"#include <unordered_set>",
 						"#include <map>",
 						"#include <set>",
 						"#include <queue>",
@@ -62,14 +66,13 @@ return {
 						"#include <numeric>",
 						"using namespace std;",
 					},
+					after = {
+						"int main() {",
+						"    Solution sol;",
+						"    return 0;",
+						"}",
+					},
 				},
-			},
-			keys = {
-				{ "q", "<cmd>Leet exit<cr>", mode = { "n" }, desc = "Exit LeetCode" },
-				{ "<leader>lt", "<cmd>Leet test<cr>", mode = { "n" }, desc = "LeetCode Test" },
-				{ "<leader>ls", "<cmd>Leet submit<cr>", mode = { "n" }, desc = "LeetCode Submit" },
-				{ "<leader>li", "<cmd>Leet info<cr>", mode = { "n" }, desc = "LeetCode Info" },
-				{ "<leader>lr", "<cmd>Leet run<cr>", mode = { "n" }, desc = "LeetCode Run" },
 			},
 		},
 	},
