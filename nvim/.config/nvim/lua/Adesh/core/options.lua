@@ -1,3 +1,7 @@
+-- add luarocks packages to lua path (needed for image.nvim magick rock)
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua"
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua"
+
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
 vim.api.nvim_set_hl(0, "Cursor", { fg = "#000000", bg = "#ffffff" })
 vim.api.nvim_set_hl(0, "iCursor", { fg = "#000000", bg = "#ffffff" })

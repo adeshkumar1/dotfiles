@@ -23,6 +23,7 @@ return {
 				"cmake",
 				"rust",
 				"c",
+				"css",
 				"kotlin",
 			}
 

@@ -16,6 +16,10 @@ require("lazy").setup(
         { import = "Adesh.plugins" },
     },
     {
+        rocks = {
+            enabled = true,
+            hererocks = true,
+        },
         checker = {
             enabled = true,
             notify = false,
@@ -23,6 +27,5 @@ require("lazy").setup(
         change_detection = {
             notify = false,
         },
-
     }
 )
