@@ -6,7 +6,7 @@ return {
 		conform.setup({
 			formatters_by_ft = {
 				cpp = { "clang-format" },
-				python = { "prettier" },
+				python = { "black" },
 				javascript = { "prettier" },
 				typescript = { "prettier" },
 				javascriptreact = { "prettier" },
@@ -17,10 +17,12 @@ return {
 				yaml = { "prettier" },
 				markdown = { "prettier" },
 				lua = { "stylua" },
-				rust = { "rust_analyzer" },
+				rust = { "rustfmt" },
 			},
 			formatters = {
-				clang_format = {},
+				["clang-format"] = {
+					prepend_args = { "--style", "{IndentWidth: 4}" },
+				},
 				prettier = {},
 			},
 			format_on_save = {

@@ -3,53 +3,44 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
-		-- "saghen/blink.cmp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 	},
 	config = function()
 		-- Define sign icons for each severity
 		local signs = {
-			[vim.diagnostic.severity.ERROR] = " ",
-			[vim.diagnostic.severity.WARN] = " ",
+			[vim.diagnostic.severity.ERROR] = " ",
+			[vim.diagnostic.severity.WARN] = " ",
 			[vim.diagnostic.severity.HINT] = "󰠠 ",
-			[vim.diagnostic.severity.INFO] = " ",
+			[vim.diagnostic.severity.INFO] = " ",
 		}
 
-		-- Set the diagnostic config with all icons
+		-- Set the diagnostic config
 		vim.diagnostic.config({
 			signs = {
-				text = signs, -- Enable signs in the gutter
+				text = signs,
 			},
-			virtual_text = true, -- Specify Enable virtual text for diagnostics
-			underline = true, -- Specify Underline diagnostics
-			update_in_insert = false, -- Keep diagnostics active in insert mode
+			virtual_text = true,
+			underline = true,
+			update_in_insert = false,
 		})
 
-		local lspconfig = require("lspconfig")
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
-		local capabilities = cmp_nvim_lsp.default_capabilities()
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-		-- Set up LSP keybindings when server attaches
-		local on_attach = function(client, bufnr)
-			local opts = { buffer = bufnr, silent = true }
+		-- LSP keybindings on attach
+		vim.api.nvim_create_autocmd("LspAttach", {
+			callback = function(args)
+				local opts = { buffer = args.buf, silent = true }
+				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+				vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+				vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+				vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+			end,
+		})
 
-			-- LSP keybindings
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-			-- vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-			-- vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-			-- vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-			-- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-			-- vim.keymap.set("n", "<leader>f", function()
-			-- 	vim.lsp.buf.format({ async = true })
-			-- end, opts)
-		end
-
-		-- Mason-lspconfig will automatically setup servers listed in mason.lua
-		-- But we can still override settings here
-
-		-- Rust
-		lspconfig.rust_analyzer.setup({
-			on_attach = on_attach,
+		-- Server configurations using vim.lsp.config
+		vim.lsp.config("rust_analyzer", {
 			capabilities = capabilities,
 			settings = {
 				["rust-analyzer"] = {
@@ -65,40 +56,40 @@ return {
 			},
 		})
 
-		-- Kotlin
-		lspconfig.kotlin_language_server.setup({
+		vim.lsp.config("kotlin_language_server", {
 			capabilities = capabilities,
-			on_attach = on_attach,
 			filetypes = { "kotlin" },
-			root_dir = lspconfig.util.root_pattern(
+			root_markers = {
 				"settings.gradle",
 				"settings.gradle.kts",
 				"build.gradle",
 				"build.gradle.kts",
-				".git"
-			),
+				".git",
+			},
 		})
 
-		-- clangd (C/C++ language server)
-		lspconfig.clangd.setup({
+		vim.lsp.config("clangd", {
 			capabilities = capabilities,
-			on_attach = on_attach,
-			-- optional: customize cmd or settings
-			-- cmd = { "clangd", "--background-index" },
+			cmd = {
+				"clangd",
+				"--background-index",
+				"--clang-tidy",
+				"--header-insertion=iwyu",
+				"--completion-style=detailed",
+				"--fallback-style=llvm",
+				"--query-driver=/usr/bin/*,/usr/local/bin/*,/opt/homebrew/bin/*",
+			},
 			filetypes = { "c", "cpp", "objc", "objcpp" },
-			root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
+			root_markers = { "compile_commands.json", "compile_flags.txt", ".git" },
 		})
 
-		lspconfig.ts_ls.setup({
-			on_attach = on_attach,
-			filetypes = { "typescript" },
-		})
-
-		-- Config lsp servers here
-		-- lua_ls
-		lspconfig.lua_ls.setup({
+		vim.lsp.config("ts_ls", {
 			capabilities = capabilities,
-			on_attach = on_attach,
+			filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+		})
+
+		vim.lsp.config("lua_ls", {
+			capabilities = capabilities,
 			settings = {
 				Lua = {
 					diagnostics = {
@@ -109,6 +100,15 @@ return {
 					},
 				},
 			},
+		})
+
+		-- Enable all configured servers
+		vim.lsp.enable({
+			"rust_analyzer",
+			"kotlin_language_server",
+			"clangd",
+			"ts_ls",
+			"lua_ls",
 		})
 	end,
 }

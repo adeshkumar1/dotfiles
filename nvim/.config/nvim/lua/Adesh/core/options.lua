@@ -1,4 +1,6 @@
-vim.opt.guicursor = ""
+vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
+vim.api.nvim_set_hl(0, "Cursor", { fg = "#000000", bg = "#ffffff" })
+vim.api.nvim_set_hl(0, "iCursor", { fg = "#000000", bg = "#ffffff" })
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -30,7 +32,6 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 vim.opt.updatetime = 50
-vim.opt.colorcolumn = "80"
 
 vim.opt.clipboard:append("unnamedplus")
 vim.o.winborder = "rounded"
@@ -38,24 +39,24 @@ vim.o.winborder = "rounded"
 vim.opt.mouse = "a"
 vim.g.editorconfig = true
 
-vim.opt.colorcolumn = ""
-
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = {
-		"javascript",
-		"typescript",
-		"javascriptreact",
-		"typescriptreact",
-		"json",
-		"html",
-		"css",
-		"yaml",
-		"markdown",
-	},
-	callback = function()
-		vim.opt_local.expandtab = true
-		vim.opt_local.tabstop = 2
-		vim.opt_local.softtabstop = 2
-		vim.opt_local.shiftwidth = 2
-	end,
+    pattern = {
+        "javascript",
+        "typescript",
+        "javascriptreact",
+        "typescriptreact",
+        "json",
+        "html",
+        "css",
+        "yaml",
+        "markdown",
+    },
+    callback = function()
+        vim.opt_local.expandtab = true
+        vim.opt_local.tabstop = 2
+        vim.opt_local.softtabstop = 2
+        vim.opt_local.shiftwidth = 2
+    end,
 })
+
+vim.g.tmux_navigator_no_wrap = 1

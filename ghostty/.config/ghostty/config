@@ -1,18 +1,16 @@
-# By default Reload config with shft + cmd + , 
+# By default Reload config with shft + cmd + ,
 #
 cursor-style = block
 cursor-color = #ffffff
 
-config-file = themes/rosepine 
+config-file = themes/rosepine
 background = #000000
-background-opacity = 0.75
-background-blur-radius = 23
+background-opacity = 1
 
-font-family = JetBrainsMonoNL Nerd Font 
-font-size = 17
-cursor-style = block
+font-family = JetBrainsMonoNL Nerd Font
+font-size = 12
 cursor-style-blink = false
-cursor-invert-fg-bg = true
+cursor-invert-fg-bg = false
 
 macos-titlebar-style = hidden
 macos-option-as-alt = true
@@ -31,3 +29,6 @@ auto-update-channel = stable
 shell-integration-features = no-cursor 
 copy-on-select = clipboard
 
+keybind = cmd+ctrl+option+s=text:\x13
+window-inherit-working-directory = false
+working-directory = home
