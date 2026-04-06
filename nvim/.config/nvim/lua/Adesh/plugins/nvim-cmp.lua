@@ -198,10 +198,6 @@ return {
 
 			-- NOTE: ! Experimenting with Customized Mappings ! --
 			mapping = cmp.mapping.preset.insert({
-				-- ['<BS>'] = cmp.mapping(function(_fallback)
-				--     smart_bs()
-				-- end, { 'i', 's' }),
-
 				["<C-e>"] = cmp.mapping.abort(), -- close completion window
 				["<C-d>"] = cmp.mapping(function()
 					cmp.close_docs()

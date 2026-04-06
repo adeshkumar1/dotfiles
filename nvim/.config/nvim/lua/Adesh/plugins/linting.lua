@@ -14,17 +14,6 @@ return {
 			python = { "pylint" },
 		}
 
-		-- eslint.args = {
-		-- 	"--no-warn-ignored",
-		-- 	"--format",
-		-- 	"json",
-		-- 	"--stdin",
-		-- 	"--stdin-filename",
-		-- 	function()
-		--               return vim.fn.expand("%:p")
-		-- 	end,
-		-- }
-
 		vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 			group = lint_augroup,
 			callback = function()
