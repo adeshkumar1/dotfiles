@@ -1,2 +1,5 @@
 .DS_Store
+.nvimlog
 raycast/
+tmux/.tmux/plugins/
+karabiner/.config/karabiner/automatic_backups/
