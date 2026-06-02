@@ -40,7 +40,6 @@ if ! grep -q 'nvim/bin' "$HOME/.bashrc" 2>/dev/null; then
   echo 'export PATH="$HOME/nvim/bin:$PATH"' >> "$HOME/.bashrc"
 fi
 
-# Install neovim plugins
-nvim --headless "+Lazy! sync" +qa
+# Plugins install automatically on first interactive launch via Lazy.nvim
 
 echo "Done! nvim and tmux are ready."
