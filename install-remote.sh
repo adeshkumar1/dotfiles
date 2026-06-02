@@ -25,8 +25,6 @@ export PATH="$HOME/nvim/bin:$PATH"
 sudo apt-get update -qq
 sudo apt-get install -y -qq tmux stow ripgrep fd-find unzip
 
-# Clear nvim cache so new configs are picked up
-rm -rf "$HOME/.cache/nvim"
 
 # Stow nvim and tmux configs
 cd "$DOTFILES_DIR"

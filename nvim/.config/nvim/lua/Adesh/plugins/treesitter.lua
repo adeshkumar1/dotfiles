@@ -4,8 +4,11 @@ return {
 		lazy = false,
 		build = ":TSInstall go java ruby bash lua python javascript typescript json yaml html css cpp rust kotlin",
 		config = function()
-			require("nvim-treesitter").setup({
-				auto_install = true,
+			vim.api.nvim_create_autocmd("VimEnter", {
+				once = true,
+				callback = function()
+					vim.cmd("silent! TSInstall go java ruby bash lua python javascript typescript json yaml html css cpp rust kotlin")
+				end,
 			})
 		end,
 	},
