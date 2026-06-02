@@ -6,6 +6,9 @@ return {
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 	},
 	config = function()
+		-- Add Mason bin to PATH so vim.lsp.enable can find installed servers
+		vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
+
 		-- Define sign icons for each severity
 		local signs = {
 			[vim.diagnostic.severity.ERROR] = " ",
