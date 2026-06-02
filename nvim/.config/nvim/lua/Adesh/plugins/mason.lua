@@ -21,12 +21,10 @@ return {
 				ensure_installed = {
 					"gopls",
 					"jdtls",
-					"ruby_lsp",
 					"rust_analyzer",
 					"lua_ls",
 					"ts_ls",
 					"kotlin_language_server",
-					"clangd",
 				},
 				automatic_installation = true,
 			})

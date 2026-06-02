@@ -131,12 +131,10 @@ return {
 		vim.lsp.enable({
 			"rust_analyzer",
 			"kotlin_language_server",
-			"clangd",
 			"ts_ls",
 			"lua_ls",
 			"gopls",
 			"jdtls",
-			"ruby_lsp",
 		})
 	end,
 }
