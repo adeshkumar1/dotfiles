@@ -41,6 +41,6 @@ if ! grep -q 'nvim/bin' "$HOME/.bashrc" 2>/dev/null; then
 fi
 
 # Install neovim plugins
-nvim --headless "+Lazy! sync" +qa 2>/dev/null || true
+nvim --headless "+Lazy! sync" +qa
 
 echo "Done! nvim and tmux are ready."
