@@ -25,8 +25,9 @@ export PATH="$HOME/nvim/bin:$PATH"
 sudo apt-get update -qq
 sudo apt-get install -y -qq tmux stow ripgrep fd-find unzip
 
-# Clear nvim state so config changes take effect cleanly
-rm -rf "$HOME/.local/share/nvim" "$HOME/.cache/nvim" "$HOME/.local/state/nvim"
+# Clear nvim cache/state but keep mason installs (LSP servers)
+rm -rf "$HOME/.cache/nvim" "$HOME/.local/state/nvim"
+rm -rf "$HOME/.local/share/nvim/lazy"
 
 # Stow nvim and tmux configs
 cd "$DOTFILES_DIR"

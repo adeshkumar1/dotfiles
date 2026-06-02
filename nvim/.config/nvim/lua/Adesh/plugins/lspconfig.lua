@@ -40,6 +40,7 @@ return {
 
 		require("mason").setup()
 		require("mason-lspconfig").setup({
+			automatic_enable = true,
 			ensure_installed = { "gopls", "jdtls", "rust_analyzer", "lua_ls", "ts_ls", "kotlin_language_server" },
 			handlers = {
 				function(server_name)
@@ -53,6 +54,7 @@ return {
 								analyses = { unusedparams = true },
 								staticcheck = true,
 								gofumpt = true,
+								semanticTokens = true,
 							},
 						},
 					})
