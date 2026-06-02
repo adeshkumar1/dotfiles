@@ -36,11 +36,15 @@ if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
   git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
 
-# Add nvim to PATH in bashrc if not already there
+# Add nvim and mason to PATH in bashrc
 if ! grep -q 'nvim/bin' "$HOME/.bashrc" 2>/dev/null; then
-  echo 'export PATH="$HOME/nvim/bin:$PATH"' >> "$HOME/.bashrc"
+  echo 'export PATH="$HOME/nvim/bin:$HOME/.local/share/nvim/mason/bin:$PATH"' >> "$HOME/.bashrc"
 fi
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
-# Plugins install automatically on first interactive launch via Lazy.nvim
+# Pre-install gopls so LSP works immediately on first nvim launch
+if ! command -v gopls &>/dev/null; then
+  go install golang.org/x/tools/gopls@latest
+fi
 
 echo "Done! nvim and tmux are ready."
