@@ -4,16 +4,19 @@ set -euo pipefail
 DOTFILES_REPO="https://github.com/adeshkumar1/dotfiles.git"
 DOTFILES_DIR="$HOME/dotfiles"
 
-# Clone dotfiles if not already present
+# Clone or pull latest dotfiles
 if [ ! -d "$DOTFILES_DIR" ]; then
   git clone "$DOTFILES_REPO" "$DOTFILES_DIR"
+else
+  git -C "$DOTFILES_DIR" pull --ff-only
 fi
 
-# Install neovim
-if ! command -v nvim &>/dev/null; then
+# Install neovim (arm64 tarball)
+if ! command -v nvim &>/dev/null && [ ! -f "$HOME/bin/nvim" ]; then
   mkdir -p "$HOME/bin"
-  curl -Lo "$HOME/bin/nvim" https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-  chmod +x "$HOME/bin/nvim"
+  curl -Lo /tmp/nvim.tar.gz -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux-arm64.tar.gz
+  tar -xzf /tmp/nvim.tar.gz -C "$HOME/bin" --strip-components=1
+  rm /tmp/nvim.tar.gz
 fi
 export PATH="$HOME/bin:$PATH"
 
