@@ -44,7 +44,13 @@ export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
 # Pre-install gopls so LSP works immediately on first nvim launch
 if ! command -v gopls &>/dev/null; then
-  go install golang.org/x/tools/gopls@latest
+  GOBIN=""
+  for p in /usr/local/go/bin/go /usr/lib/go/bin/go /home/owner/go/bin/go; do
+    if [ -x "$p" ]; then GOBIN="$p"; break; fi
+  done
+  if [ -n "$GOBIN" ]; then
+    "$GOBIN" install golang.org/x/tools/gopls@latest
+  fi
 fi
 
 echo "Done! nvim and tmux are ready."
