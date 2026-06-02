@@ -2,14 +2,16 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		lazy = false,
-		build = ":TSInstall go java ruby bash lua python javascript typescript json yaml html css cpp rust kotlin",
-		config = function()
-			vim.api.nvim_create_autocmd("VimEnter", {
-				once = true,
-				callback = function()
-					vim.cmd("silent! TSInstall go java ruby bash lua python javascript typescript json yaml html css cpp rust kotlin")
-				end,
-			})
-		end,
+		build = ":TSUpdate",
+		main = "nvim-treesitter",
+		opts = {
+			ensure_installed = {
+				"go", "gomod", "java", "ruby", "bash", "lua", "python",
+				"javascript", "typescript", "json", "yaml", "html", "css",
+				"cpp", "rust", "kotlin",
+			},
+			highlight = { enable = true },
+			indent = { enable = true },
+		},
 	},
 }
