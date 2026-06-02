@@ -102,6 +102,31 @@ return {
 			},
 		})
 
+		vim.lsp.config("gopls", {
+			capabilities = capabilities,
+			settings = {
+				gopls = {
+					analyses = {
+						unusedparams = true,
+					},
+					staticcheck = true,
+					gofumpt = true,
+				},
+			},
+		})
+
+		vim.lsp.config("jdtls", {
+			capabilities = capabilities,
+			filetypes = { "java" },
+			root_markers = { "build.gradle", "pom.xml", ".git" },
+		})
+
+		vim.lsp.config("ruby_lsp", {
+			capabilities = capabilities,
+			filetypes = { "ruby" },
+			root_markers = { "Gemfile", ".git" },
+		})
+
 		-- Enable all configured servers
 		vim.lsp.enable({
 			"rust_analyzer",
@@ -109,6 +134,9 @@ return {
 			"clangd",
 			"ts_ls",
 			"lua_ls",
+			"gopls",
+			"jdtls",
+			"ruby_lsp",
 		})
 	end,
 }

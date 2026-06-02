@@ -18,6 +18,9 @@ return {
 				markdown = { "prettier" },
 				lua = { "stylua" },
 				rust = { "rustfmt" },
+				go = { "goimports", "gofmt" },
+				java = { "google-java-format" },
+				ruby = { "rubocop" },
 			},
 			formatters = {
 				["clang-format"] = {
