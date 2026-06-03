@@ -1,30 +1,20 @@
 #!/bin/bash
 set -euo pipefail
 
-DOTFILES_REPO="https://github.com/adeshkumar1/dotfiles.git"
 DOTFILES_DIR="$HOME/dotfiles"
+NVIM_VERSION="v0.11.0"
 
-# Clone or pull latest dotfiles
-if [ ! -d "$DOTFILES_DIR" ]; then
-  git clone "$DOTFILES_REPO" "$DOTFILES_DIR"
-else
-  git -C "$DOTFILES_DIR" pull --ff-only
-fi
-
-# Install neovim (arm64 tarball)
-if ! nvim --version &>/dev/null; then
-  rm -rf "$HOME/nvim"
-  mkdir -p "$HOME/nvim"
-  curl -fLo /tmp/nvim.tar.gz https://github.com/neovim/neovim/releases/latest/download/nvim-linux-arm64.tar.gz
-  tar -xzf /tmp/nvim.tar.gz -C "$HOME/nvim" --strip-components=1
+# Install neovim (arm64 tarball to /opt)
+if ! command -v nvim &>/dev/null; then
+  curl -fLo /tmp/nvim.tar.gz "https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux-arm64.tar.gz"
+  sudo rm -rf /opt/nvim-linux-arm64
+  sudo tar -C /opt -xzf /tmp/nvim.tar.gz
   rm /tmp/nvim.tar.gz
 fi
-export PATH="$HOME/nvim/bin:$PATH"
 
 # Install dependencies
 sudo apt-get update -qq
-sudo apt-get install -y -qq tmux stow ripgrep fd-find unzip
-
+sudo apt-get install -y -qq tmux stow ripgrep fd-find fzf unzip curl bat
 
 # Stow nvim and tmux configs
 cd "$DOTFILES_DIR"
@@ -33,24 +23,24 @@ stow --restow -t "$HOME" tmux
 
 # Install tmux plugin manager
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+  GIT_CONFIG_NOSYSTEM=1 git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
 
-# Add nvim and mason to PATH in bashrc
-if ! grep -q 'nvim/bin' "$HOME/.bashrc" 2>/dev/null; then
-  echo 'export PATH="$HOME/nvim/bin:$HOME/.local/share/nvim/mason/bin:$PATH"' >> "$HOME/.bashrc"
-fi
-export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+# Setup PATH
+if ! grep -q 'nvim-linux-arm64' "$HOME/.bashrc" 2>/dev/null; then
+  cat >> "$HOME/.bashrc" <<'BASHRC'
 
-# Pre-install gopls so LSP works immediately on first nvim launch
-if ! command -v gopls &>/dev/null; then
-  GOBIN=""
-  for p in /usr/local/go/bin/go /usr/lib/go/bin/go /home/owner/go/bin/go; do
-    if [ -x "$p" ]; then GOBIN="$p"; break; fi
-  done
-  if [ -n "$GOBIN" ]; then
-    "$GOBIN" install golang.org/x/tools/gopls@latest
-  fi
+export PATH="/opt/nvim-linux-arm64/bin:$HOME/.local/share/nvim/mason/bin:/pay/src/go/bin:$HOME/go/bin:$PATH"
+export EDITOR=nvim
+export GIT_CONFIG_NOSYSTEM=1
+
+if [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
+  tmux attach -t dev 2>/dev/null || tmux new-session -s dev
 fi
+BASHRC
+fi
+
+# Install nvim plugins (may segfault on arm64, hence || true)
+GIT_CONFIG_NOSYSTEM=1 /opt/nvim-linux-arm64/bin/nvim --headless "+Lazy! sync" +qa 2>/dev/null || true
 
 echo "Done! nvim and tmux are ready."
