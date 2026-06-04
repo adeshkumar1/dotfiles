@@ -22,6 +22,8 @@ return {
 				"jdtls",
 				"ts_ls",
 				"kotlin_language_server",
+				"ruby_lsp",
+				"sorbet",
 			})
 
 			vim.diagnostic.config({

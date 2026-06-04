@@ -30,7 +30,7 @@ fi
 if ! grep -q 'nvim-linux-arm64' "$HOME/.bashrc" 2>/dev/null; then
   cat >> "$HOME/.bashrc" <<'BASHRC'
 
-export PATH="/opt/nvim-linux-arm64/bin:$HOME/.local/share/nvim/mason/bin:/pay/src/go/bin:$HOME/go/bin:$PATH"
+export PATH="/opt/nvim-linux-arm64/bin:$HOME/.local/share/nvim/mason/bin:$HOME/.local/share/gem/ruby/3.3.0/bin:/pay/src/go/bin:$HOME/go/bin:$PATH"
 export EDITOR=nvim
 export GIT_CONFIG_NOSYSTEM=1
 
@@ -39,6 +39,9 @@ if [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
 fi
 BASHRC
 fi
+
+# Install ruby-lsp gem for Sorbet/Ruby LSP in Neovim
+gem install ruby-lsp 2>/dev/null || true
 
 # Install nvim plugins (may segfault on arm64, hence || true)
 GIT_CONFIG_NOSYSTEM=1 /opt/nvim-linux-arm64/bin/nvim --headless "+Lazy! sync" +qa 2>/dev/null || true
