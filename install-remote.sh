@@ -32,11 +32,6 @@ if ! grep -q 'nvim-linux-arm64' "$HOME/.bashrc" 2>/dev/null; then
 
 export PATH="/opt/nvim-linux-arm64/bin:$HOME/.local/share/nvim/mason/bin:$HOME/.local/share/gem/ruby/3.3.0/bin:/pay/src/go/bin:$HOME/go/bin:$PATH"
 export EDITOR=nvim
-export GIT_CONFIG_NOSYSTEM=1
-
-if [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
-  tmux attach -t dev 2>/dev/null || tmux new-session -s dev
-fi
 BASHRC
 fi
 
