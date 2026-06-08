@@ -43,6 +43,7 @@ mkdir -p "$HOME/.claude"
 cat > "$HOME/.claude/settings.json" <<'CLAUDE'
 {
   "model": "claude-opus-4-6-max",
+  "effortLevel": "high",
   "theme": "dark"
 }
 CLAUDE
