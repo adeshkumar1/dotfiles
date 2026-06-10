@@ -32,6 +32,7 @@ if ! grep -q 'nvim-linux-arm64' "$HOME/.bashrc" 2>/dev/null; then
 
 export PATH="/opt/nvim-linux-arm64/bin:$HOME/.local/share/nvim/mason/bin:$HOME/.local/share/gem/ruby/3.3.0/bin:/pay/src/go/bin:$HOME/go/bin:$PATH"
 export EDITOR=nvim
+export ANTHROPIC_MODEL="claude-opus-4-6"
 BASHRC
 fi
 
