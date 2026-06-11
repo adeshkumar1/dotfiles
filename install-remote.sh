@@ -43,4 +43,12 @@ gem install ruby-lsp 2>/dev/null || true
 # Install nvim plugins (may segfault on arm64, hence || true)
 GIT_CONFIG_NOSYSTEM=1 /opt/nvim-linux-arm64/bin/nvim --headless "+Lazy! sync" +qa 2>/dev/null || true
 
+# Install tree-sitter CLI (needed by nvim-treesitter to compile parsers)
+mkdir -p "$HOME/go/bin"
+npm install --prefix "$HOME/.local" tree-sitter-cli 2>/dev/null || true
+ln -sf "$HOME/.local/node_modules/.bin/tree-sitter" "$HOME/go/bin/tree-sitter"
+
+# Compile treesitter parsers for syntax highlighting
+GIT_CONFIG_NOSYSTEM=1 /opt/nvim-linux-arm64/bin/nvim --headless "+TSUpdate" +sleep30 +qa 2>/dev/null || true
+
 echo "Done! nvim and tmux are ready."
