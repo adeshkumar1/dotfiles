@@ -19,10 +19,23 @@ return {
 
     vim.keymap.set("n", "<C-n>", require("oil").toggle_float)
 
+    function _G.oil_winbar()
+        local ok, oil = pcall(require, "oil")
+        if not ok then
+            return ""
+        end
+        local dir = oil.get_current_dir()
+        if not dir then
+            return ""
+        end
+        return vim.fn.pathshorten(vim.fn.fnamemodify(dir, ":~"))
+    end
+
     vim.api.nvim_create_autocmd("FileType", {
         pattern = "oil",
         callback = function()
             vim.opt_local.cursorline = true
+            vim.opt_local.winbar = "%!v:lua.oil_winbar()"
         end
     })
 
