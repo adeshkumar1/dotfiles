@@ -1,9 +1,9 @@
 return {
 	{
-		"williamboman/mason.nvim",
+		"mason-org/mason.nvim",
 		lazy = false,
 		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
+			"mason-org/mason-lspconfig.nvim",
 			"hrsh7th/cmp-nvim-lsp",
 		},
 		config = function()
@@ -15,7 +15,8 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			vim.lsp.config("*", { capabilities = capabilities })
 
-			vim.lsp.enable({
+			local servers = {
+				"clangd",
 				"gopls",
 				"lua_ls",
 				"rust_analyzer",
@@ -24,7 +25,13 @@ return {
 				"kotlin_language_server",
 				"ruby_lsp",
 				"sorbet",
-			})
+			}
+			for _, name in ipairs(servers) do
+				local cmd = vim.lsp.config[name].cmd
+				if type(cmd) == "table" and vim.fn.executable(cmd[1]) == 1 then
+					vim.lsp.enable(name)
+				end
+			end
 
 			vim.diagnostic.config({
 				signs = {

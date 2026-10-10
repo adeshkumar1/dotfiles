@@ -15,17 +15,17 @@ vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
 
 vim.keymap.set("x", "<leader>p", [["_dP]])
-vim.keymap.set("v", "p", '"_dp', opts)
+vim.keymap.set("x", "p", "P", opts)
 
 vim.keymap.set("n", "<C-c>", ":nohlsearch<CR>")
 
-vim.keymap.set("n", "<C-e>", vim.diagnostic.goto_next, opts)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+vim.keymap.set("n", "<C-e>", function()
+	vim.diagnostic.jump({ count = 1, float = true })
+end, opts)
 
--- Hightlight yanking
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
 	callback = function()
 		vim.hl.on_yank()
 	end,

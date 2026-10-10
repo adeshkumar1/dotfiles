@@ -6,8 +6,8 @@ return {
 			local gs = require("gitsigns")
 			local opts = { buffer = bufnr, silent = true }
 
-			vim.keymap.set("n", "]h", gs.next_hunk, opts)
-			vim.keymap.set("n", "[h", gs.prev_hunk, opts)
+			vim.keymap.set("n", "]h", function() gs.nav_hunk("next") end, opts)
+			vim.keymap.set("n", "[h", function() gs.nav_hunk("prev") end, opts)
 			vim.keymap.set("n", "<leader>hs", gs.stage_hunk, opts)
 			vim.keymap.set("n", "<leader>hr", gs.reset_hunk, opts)
 			vim.keymap.set("n", "<leader>hp", gs.preview_hunk, opts)

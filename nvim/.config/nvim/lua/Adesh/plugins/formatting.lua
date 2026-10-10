@@ -1,6 +1,7 @@
 return {
 	"stevearc/conform.nvim",
-	opts = {},
+	event = { "BufWritePre" },
+	cmd = { "ConformInfo" },
 	config = function()
 		local conform = require("conform")
 		conform.setup({
@@ -26,11 +27,9 @@ return {
 				["clang-format"] = {
 					prepend_args = { "--style", "{IndentWidth: 4}" },
 				},
-				prettier = {},
 			},
 			format_on_save = {
-				lsp_fallback = true,
-				async = false,
+				lsp_format = "fallback",
 				timeout_ms = 1000,
 			},
 		})
