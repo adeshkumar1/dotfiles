@@ -19,10 +19,11 @@ export PATH="$PATH:$HOME/.local/bin"
 
 alias gs="git status"
 alias ga="git add ."
-alias ls='eza --icons'
+alias ls="eza --icons=auto"
 alias ll='eza -lh --git'
 alias la='eza -lah'
 alias leetcode='nvim leetcode.nvim'
+alias spotify='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
 
 source <(fzf --zsh)
 
