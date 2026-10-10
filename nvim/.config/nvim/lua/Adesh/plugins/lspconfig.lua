@@ -9,16 +9,18 @@ return {
 		config = function()
 			require("mason").setup()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "gopls", "jdtls", "rust_analyzer", "lua_ls", "ts_ls", "kotlin_language_server" },
+				ensure_installed = { "gopls", "jdtls", "rust_analyzer", "lua_ls", "ts_ls", "kotlin_language_server", "ruff" },
 			})
 
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			vim.lsp.config("*", { capabilities = capabilities })
 
 			local servers = {
+				"basedpyright",
 				"clangd",
 				"gopls",
 				"lua_ls",
+				"ruff",
 				"rust_analyzer",
 				"jdtls",
 				"ts_ls",
