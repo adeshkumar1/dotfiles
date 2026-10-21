@@ -25,6 +25,8 @@ return {
 			},
 			formatters = {
 				["clang-format"] = {
+					command = vim.fn.exepath("clang-format") ~= "" and "clang-format"
+						or "/opt/homebrew/opt/llvm/bin/clang-format",
 					prepend_args = { "--style", "{IndentWidth: 4}" },
 				},
 			},
