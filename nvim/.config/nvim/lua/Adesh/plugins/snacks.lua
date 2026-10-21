@@ -161,6 +161,41 @@ return {
 				desc = "Search Visual selection or Word",
 				mode = { "n", "x" },
 			},
+			{
+				"<leader>fb",
+				function()
+					require("snacks").picker.buffers()
+				end,
+				desc = "Buffers",
+			},
+			{
+				"<leader>fr",
+				function()
+					require("snacks").picker.resume()
+				end,
+				desc = "Resume Last Picker",
+			},
+			{
+				"<leader>fd",
+				function()
+					require("snacks").picker.diagnostics()
+				end,
+				desc = "Diagnostics",
+			},
+			{
+				"<leader>fh",
+				function()
+					require("snacks").picker.help()
+				end,
+				desc = "Help Pages",
+			},
+			{
+				"<leader>fo",
+				function()
+					require("snacks").picker.recent()
+				end,
+				desc = "Recent Files",
+			},
 		},
 	},
 }

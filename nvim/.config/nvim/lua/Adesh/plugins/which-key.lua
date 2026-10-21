@@ -10,6 +10,7 @@ return {
 			{ "<leader>r", group = "Rename" },
 			{ "<leader>c", group = "Code" },
 			{ "<leader>g", group = "Git" },
+			{ "<leader>d", group = "Debug" },
 		},
 	},
 }

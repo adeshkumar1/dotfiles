@@ -10,13 +10,14 @@ return {
 			require("nvim-treesitter").install({
 				"go", "gomod", "java", "ruby", "bash", "lua", "python",
 				"javascript", "typescript", "json", "yaml", "html", "css",
-				"cpp", "c", "rust", "kotlin", "tsx", "toml", "markdown", "markdown_inline",
-				"vim", "vimdoc", "query", "diff",
+				"cpp", "c", "rust", "tsx", "toml", "markdown", "markdown_inline",
+				"vim", "vimdoc", "query", "diff", "cmake", "make", "doxygen",
 			})
 
 			-- The main branch dropped the highlight/indent modules; Neovim owns
 			-- highlighting now and both have to be turned on per buffer.
 			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup("treesitter-start", { clear = true }),
 				callback = function(ev)
 					local ok, parser = pcall(vim.treesitter.get_parser, ev.buf)
 					if not ok or not parser then

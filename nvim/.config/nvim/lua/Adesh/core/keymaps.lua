@@ -20,8 +20,16 @@ vim.keymap.set("x", "p", "P", opts)
 vim.keymap.set("n", "<C-c>", ":nohlsearch<CR>")
 
 vim.keymap.set("n", "<C-e>", function()
-	vim.diagnostic.jump({ count = 1, float = true })
+	vim.diagnostic.jump({
+		count = 1,
+		on_jump = function()
+			vim.diagnostic.open_float()
+		end,
+	})
 end, opts)
+
+vim.cmd.packadd("nvim.undotree")
+vim.keymap.set("n", "<leader>u", "<cmd>Undotree<cr>")
 
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",

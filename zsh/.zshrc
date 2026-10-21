@@ -16,6 +16,7 @@ EOF
 antidote load ~/.zsh/plugins/plugins.txt
 
 export PATH="$PATH:$HOME/.local/bin"
+export CMAKE_EXPORT_COMPILE_COMMANDS=1
 
 alias gs="git status"
 alias ga="git add ."

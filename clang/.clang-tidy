@@ -1,0 +1,10 @@
+Checks: >
+  -*,
+  bugprone-*,
+  clang-analyzer-*,
+  performance-*,
+  modernize-*,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-exception-escape,
+  -modernize-use-trailing-return-type,
+  -modernize-use-nodiscard

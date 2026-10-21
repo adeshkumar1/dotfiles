@@ -1,7 +1,7 @@
 return {
 	{
 		"3rd/image.nvim",
-		lazy = false,
+		lazy = true,
 		opts = {
 			backend = "kitty",
 			integrations = {
@@ -22,6 +22,13 @@ return {
 		config = function(_, opts)
 			require("leetcode").setup(opts)
 
+			-- clangd's fallbackFlags apply to C too, so pin C++20 for the solutions dir only
+			local home = vim.fn.stdpath("data") .. "/leetcode"
+			vim.fn.mkdir(home, "p")
+			if not vim.uv.fs_stat(home .. "/compile_flags.txt") then
+				vim.fn.writefile({ "-std=c++20", "-Wall", "-Wextra" }, home .. "/compile_flags.txt")
+			end
+
 			local function enable_wrap_on_leetcode()
 				for _, win in ipairs(vim.api.nvim_list_wins()) do
 					local buf = vim.api.nvim_win_get_buf(win)
@@ -34,10 +41,13 @@ return {
 				end
 			end
 
+			local group = vim.api.nvim_create_augroup("leetcode-wrap", { clear = true })
 			vim.api.nvim_create_autocmd("WinEnter", {
+				group = group,
 				callback = enable_wrap_on_leetcode,
 			})
 			vim.api.nvim_create_autocmd("BufWinEnter", {
+				group = group,
 				callback = function()
 					vim.defer_fn(enable_wrap_on_leetcode, 200)
 				end,
