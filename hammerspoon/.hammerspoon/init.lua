@@ -1,5 +1,7 @@
 require("hs.ipc")
 
+hs.window.timeout(0.5)
+
 local hyper = { "cmd", "ctrl", "alt" }
 
 local function moveMouseToCenter(frame)
@@ -54,10 +56,13 @@ local function focusDirectional(dir)
   end
   if not best then return end
 
-  local target = hs.window.get(best.id)
-  if not (target and target:focus()) then
-    local app = hs.application.applicationForPID(best.pid)
-    if app then app:activate() end
+  local app = hs.application.applicationForPID(best.pid)
+  if app then
+    local target
+    for _, w in ipairs(app:allWindows()) do
+      if w:id() == best.id then target = w break end
+    end
+    if not (target and target:focus()) then app:activate() end
   end
   moveMouseToCenter(best.frame)
 end
