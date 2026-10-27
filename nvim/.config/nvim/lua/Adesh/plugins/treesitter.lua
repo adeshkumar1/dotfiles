@@ -11,7 +11,7 @@ return {
 				"go", "gomod", "java", "ruby", "bash", "lua", "python",
 				"javascript", "typescript", "json", "yaml", "html", "css",
 				"cpp", "c", "rust", "tsx", "toml", "markdown", "markdown_inline",
-				"vim", "vimdoc", "query", "diff", "cmake", "make", "doxygen",
+				"vim", "vimdoc", "query", "diff", "cmake", "make", "doxygen", "embedded_template",
 			})
 
 			-- The main branch dropped the highlight/indent modules; Neovim owns

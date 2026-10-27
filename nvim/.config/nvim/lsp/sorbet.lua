@@ -1,5 +1,6 @@
 return {
-	cmd = { "/pay/src/pay-server/scripts/bin/typecheck", "--lsp" },
+	cmd = { "srb", "tc", "--lsp" },
 	filetypes = { "ruby" },
-	root_markers = { "sorbet/config", "Gemfile", ".git" },
+	root_markers = { "sorbet/config" },
+	workspace_required = true,
 }

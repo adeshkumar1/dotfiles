@@ -1,7 +1,17 @@
+-- Run under Homebrew's CRuby, isolated from RVM's JRuby env (ruby-lsp needs Ruby 3+)
+local ruby = "/opt/homebrew/opt/ruby/bin/ruby"
+local gem_home = vim.fn.glob("~/.gem/ruby/*", false, true)
+gem_home = gem_home[#gem_home] or ""
+
 return {
-	cmd = {
-		"/usr/lib/rbenv/versions/ae3e1488a5b8485c7b8dfd7adbe076cf3e63be4d_sorbet_ruby_3_3/bin/ruby",
-		vim.fn.expand("$HOME") .. "/.local/share/gem/ruby/3.3.0/gems/ruby-lsp-0.4.1/exe/ruby-lsp",
+	cmd = { ruby, gem_home .. "/bin/ruby-lsp" },
+	cmd_env = {
+		GEM_HOME = gem_home,
+		GEM_PATH = gem_home .. ":" .. vim.fn.glob("/opt/homebrew/lib/ruby/gems/*", false, true)[1],
+		-- Standalone bundle: our projects pin JRuby/2.x, which ruby-lsp can't compose a bundle against
+		BUNDLE_GEMFILE = vim.fn.expand("~/.local/share/ruby-lsp/Gemfile"),
+		RUBY_VERSION = "",
+		MY_RUBY_HOME = "",
 	},
 	filetypes = { "ruby", "eruby" },
 	root_markers = { "Gemfile", ".git" },
