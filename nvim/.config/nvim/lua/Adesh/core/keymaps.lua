@@ -19,6 +19,8 @@ vim.keymap.set("x", "p", "P", opts)
 
 vim.keymap.set("n", "<C-c>", ":nohlsearch<CR>")
 
+vim.keymap.set("n", "<leader>kl", "za")
+
 vim.keymap.set("n", "<C-e>", function()
 	vim.diagnostic.jump({
 		count = 1,
